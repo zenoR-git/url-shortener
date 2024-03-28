@@ -30,7 +30,7 @@ type response struct {
 
 func ShortenURL(c *fiber.Ctx) error {
 
-	var body response
+	var body request
 
 	if err := c.BodyParser(&body); err != nil {
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": "cannot parse json"})
@@ -66,7 +66,7 @@ func ShortenURL(c *fiber.Ctx) error {
 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": "cannot access"})
 	}
 
-	//enforce https
+	//enforce http
 	body.URL = helper.EnforceHTTP(body.URL)
 
 	var id string
